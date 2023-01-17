@@ -21,5 +21,28 @@ for(let i = 0; i < inputarray.length; i++){
     }
 }
 
-console.log(optionsarray);
-console.table(filesarray);
+// console.log(optionsarray);
+// console.table(filesarray);
+
+let content = "";
+
+// for(let i = 0; i < filesarray.length; i++){
+    // content += filesarray[i] + "\n";
+// }
+// 
+// console.log("files to be read are \n" + content);
+
+// checking if the file exist or not
+
+for(let i = 0; i < filesarray.length; i++){
+    let doesexist = fs.existsSync(filesarray[i]);
+    if(doesexist == false)
+        console.log("one or more files does not exist");
+        return;
+}
+
+for(let i = 0; i < filesarray.length; i++){
+    content += filesarray[i] + "\n";
+}
+
+console.log("files to be read are \n" + content);
