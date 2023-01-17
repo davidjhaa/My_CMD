@@ -5,6 +5,21 @@ let fs = require("fs");
 let process = require("process");
 
 // also process.argv returns all the argument from cli as an array
-let inputarr = process.argv.slice(2);
+let inputarray = process.argv.slice(2);
 
-console.log(inputarr);
+// console.log(inputarray);
+
+let filesarray = [];
+let optionsarray = [];
+
+for(let i = 0; i < inputarray.length; i++){
+    if(inputarray[i].charAt(0) == "-"){
+        optionsarray.push(inputarray[i]);
+    }
+    else{
+        filesarray.push(inputarray[i]);
+    }
+}
+
+console.log(optionsarray);
+console.table(filesarray);
