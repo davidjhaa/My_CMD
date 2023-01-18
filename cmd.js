@@ -37,19 +37,42 @@ for(let i = 0; i < filesarray.length; i++){
     files += filesarray[i] + "\n";
 }
 
-console.log("Files to be read are :-> \n" + files);
+// console.log("Files to be read are :-> \n" + files);
 
 let content = "";
 
 for(let i = 0; i < filesarray.length; i++){
-    content += fs.readFileSync(filesarray[i]) + "\n";
+    let contentfile = fs.readFileSync(filesarray[i]);
+    content += contentfile + "\r\n";
 }
 
-console.log(content);
+// console.log(content);
 
-let contentarray = content.split("\n");
+let contentarray = content.split("\r\n");
+// console.table(contentarray);
 
-if(optionsarray.includes("-s"){
+let temparray = [];
+if(optionsarray.includes("-s")){
+    for(let i = 1; i < contentarray.length; i++){
+        if(contentarray[i-1] == "" && contentarray[i] == ""){
+            contentarray[i-1] = null;
+        }
+    }
 
+    for(let j = 0; j < contentarray.length; j++){
+        if(contentarray[j] != null){
+            temparray.push(contentarray[j]);
+        }
+    }
 }
+
+contentarray = temparray;
+// console.table(contentarray);
+
+// printing data of all files at once
+for(let i = 0; i < contentarray.length; i++){
+    console.log(contentarray[i]);
+}
+
+
 
