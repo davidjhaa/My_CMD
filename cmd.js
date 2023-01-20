@@ -1,3 +1,9 @@
+// 1) node wcat.js filepath => displays the contents of a file in terminal
+// 2) node wcat.js filepath1 filepath2 filepath3  => displays the content of all files in terminal in concatinated form in given order
+// 3) node wcat.js -n file1 file 2 file3 OR node wcat.js -n file1 
+//node wcat.js f1.txt
+//node wcat.js f1.txt f2.txt f3.txt
+
 //  FS module allows you to work with the file system on your computer
 const fs = require("fs");
 // process module is useful in taking command line argument         
@@ -51,6 +57,8 @@ for(let i = 0; i < filesarray.length; i++){
 let contentarray = content.split("\r\n");
 // console.table(contentarray);
 
+
+// -s is used here for deleting redundant line
 let temparray = [];
 if(optionsarray.includes("-s")){
     for(let i = 1; i < contentarray.length; i++){
@@ -64,37 +72,59 @@ if(optionsarray.includes("-s")){
             temparray.push(contentarray[j]);
         }
     }
+    contentarray = temparray;
 }
 
-contentarray = temparray;
 // console.table(contentarray);
 
 // printing data of all files at once
 for(let i = 0; i < contentarray.length; i++){
-    console.log(contentarray[i]);
+    // console.log(contentarray[i]);
 }
 
 let indexOfN = optionsarray.indexOf("-n");
 let indexOfB = optionsarray.indexOf("-b");
-let finalOption = -1;
+let finalOption = "";
 
 if(indexOfN != -1 && indexOfB != -1){
     if(indexOfN < indexOfB)
-        finalOption = indexOfN;
+        finalOption = "-n";
     else
-        finalOption = indexOfB;
+        finalOption = "-b";
 }
-else if(indexOfN != -1){
-    finalOption = indexOfN;
-}
+
 else{
-    finalOption = indexOfB;
+    if(indexOfN != -1)
+        finalOption = "-n";
+    else
+        finalOption = "-b";
 }
 
-if(finalOption != -1){
-    let option = optionsarray[finalOption];
-    if(option === "-n")
+if(finalOption == "-n"){
+    modifyContentByN();
 }
 
+if(finalOption == "-b"){
+    modifyContentByB();
+}
+
+
+function modifyContentByN(){
+    for(let i = 0; i < contentarray.length; i++){
+        contentarray[i] = (i+1) + "> " + contentarray[i];
+    }
+}
+
+function modifyContentByB(){
+    count = 1;
+    for(let i = 0; i < contentarray.length; i++){
+        if(contentarray[i] != ""){
+            contentarray[i] = count + "> " + contentarray[i];
+            count++;
+        }
+    }
+}
+
+console.log(contentarray);
 
 
