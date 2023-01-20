@@ -74,5 +74,27 @@ for(let i = 0; i < contentarray.length; i++){
     console.log(contentarray[i]);
 }
 
+let indexOfN = optionsarray.indexOf("-n");
+let indexOfB = optionsarray.indexOf("-b");
+let finalOption = -1;
+
+if(indexOfN != -1 && indexOfB != -1){
+    if(indexOfN < indexOfB)
+        finalOption = indexOfN;
+    else
+        finalOption = indexOfB;
+}
+else if(indexOfN != -1){
+    finalOption = indexOfN;
+}
+else{
+    finalOption = indexOfB;
+}
+
+if(finalOption != -1){
+    let option = optionsarray[finalOption];
+    if(option === "-n")
+}
+
 
 
